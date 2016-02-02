@@ -40,6 +40,15 @@ export var create_vbo = function(gl_context, data) {
   return vbo
 }
 
+export var create_ibo = function(gl_context, data) {
+  let ibo = gl_context.createBuffer()
+  gl_context.bindBuffer(gl_context.ELEMENT_ARRAY_BUFFER, ibo)
+  gl_context.bufferData(gl_context.ELEMENT_ARRAY_BUFFER, new Int16Array(data), gl_context.STATIC_DRAW)
+  gl_context.bindBuffer(gl_context.ELEMENT_ARRAY_BUFFER, null)
+
+  return ibo
+}
+
 function create_shader(gl_context, shader,  shader_src) {
   gl_context.shaderSource(shader, shader_src)
   gl_context.compileShader(shader)
@@ -50,11 +59,14 @@ function create_shader(gl_context, shader,  shader_src) {
   }
 }
 
+
+
 var Utils = {
   create_vertex_shader: create_vertex_shader,
   create_fragment_shader: create_fragment_shader,
   get_shader_src: get_shader_src,
   create_program: create_program,
-  create_vbo: create_vbo
+  create_vbo: create_vbo,
+  create_ibo: create_ibo
 }
 export default Utils
